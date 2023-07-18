@@ -8,20 +8,7 @@ export default function App() {
   const [isSuggstionBoxVisible, setSuggestionBoxVisibility] = useState(false);
   const [inputText, setInputText] = useState("");
   const [suggestionsList, setSuggestionsList] = useState([]);
-
-  useEffect(() => {
-    window.addEventListener("click", (e) => {
-      if (
-        e.target !== inputRef.current &&
-        e.target !== suggestionBoxRef.current
-      ) {
-        setSuggestionBoxVisibility(false);
-      }
-    });
-    return () => {
-      window.removeEventListener("click", () => {});
-    };
-  });
+  //vikash
 
   const filterSuggestions = (value) => {
     if (!value) {
@@ -41,14 +28,29 @@ export default function App() {
     filterSuggestions(value);
   };
 
+  useEffect(() => {
+    window.addEventListener("click", (e) => {
+      if (
+        e.target !== inputRef.current &&
+        e.target !== suggestionBoxRef.current
+      ) {
+        setSuggestionBoxVisibility(false);
+      }
+    });
+
+    return () => {
+      window.removeEventListener("click", () => {});
+    };
+  });
+  console.log({ inputText });
   return (
     <div className="app">
       <input
+        type="text"
         id="search"
         placeholder="Enter text here"
         className="searchBox"
         onFocus={() => setSuggestionBoxVisibility(true)}
-        onBlur={() => setSuggestionBoxVisibility(false)}
         onChange={handleChange}
         value={inputText}
         ref={inputRef}
@@ -63,9 +65,9 @@ export default function App() {
             return (
               <div
                 onClick={() => setInputText(data)}
-                style={{ cursor: "pointer" }}
+                style={{ cursor: "pointer", marginBottom: "6px" }}
               >
-                {data}
+                 👉 {data}
               </div>
             );
           })}
